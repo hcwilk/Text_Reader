@@ -1,0 +1,85 @@
+from tkinter import *
+
+root = Tk()
+frame = Frame(root, width=300, height=300,bd=20)
+root.title("Text shit")
+root.geometry("800x800")
+e = Text(root,height=50,width=50)
+e.grid(row=0,column=0,rowspan=3)
+nope = Label(frame,text="")
+punct = ['.','?','!']
+def action(int):
+    global words
+    str = e.get("1.0",END)
+    words = str.split()
+    # print(words)
+    if int==1:
+        add_letter()
+    elif int==2:
+        add_letter2()
+    elif int==3:
+        add_letter3()
+Button(root,text="Slow",command = lambda : action(1)).grid(row=0,column=1)
+Button(root,text="Medium",command = lambda : action(2)).grid(row=1,column=1)
+Button(root,text="Fast",command = lambda : action(3)).grid(row=2,column=1)
+frame.grid(row=1,column=2,columnspan=3,padx=5,pady=5)
+
+
+def add_letter():
+    if len(words)==0:
+        return None
+    global nope
+    nope.place_forget()
+    word = words[0]
+    if any(x in word for x in punct):
+        nope = Label(frame, text=word)
+        nope.place(x=150,y=150,anchor="center")
+        root.after(600, add_letter)
+        words.remove(word)
+    else:
+        nope = Label(frame, text=word)
+        nope.place(x=150,y=150,anchor="center")
+        root.after(500, add_letter)
+        words.remove(word)
+def add_letter2():
+    if len(words)==0:
+        return None
+    global nope
+    nope.place_forget()
+    word = words[0]
+    if any(x in word for x in punct):
+        nope = Label(frame, text=word)
+        nope.place(x=150,y=150,anchor="center")
+        root.after(250, add_letter2)
+        words.remove(word)
+    else:
+        nope = Label(frame, text=word)
+        nope.place(x=150,y=150,anchor="center")
+        root.after(200, add_letter2)
+        words.remove(word)
+def add_letter3():
+    if len(words)==0:
+        return None
+    global nope
+    nope.place_forget()
+
+    word = words[0]
+    if any(x in word for x in punct):
+        nope = Label(frame, text=word)
+        nope.place(x=150,y=150,anchor="center")
+        root.after(225, add_letter3)
+        words.remove(word)
+    elif ',' in word:
+        nope = Label(frame, text=word)
+        nope.place(x=150,y=150,anchor="center")
+        root.after(175, add_letter3)
+        words.remove(word)
+    else:
+        nope = Label(frame, text=word)
+        nope.place(x=150,y=150,anchor="center")
+        root.after(125, add_letter3)
+        words.remove(word)
+root.mainloop()
+
+
+
